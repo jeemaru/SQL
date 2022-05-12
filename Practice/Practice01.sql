@@ -15,10 +15,10 @@ order by hire_date asc;
 업무(jobs)별로 업무이름(job_title)과 최고월급(max_salary)을 월급의 내림차순(DESC)로 정렬
 하세요
 
-select  job_id "job_title",
-        salary "max_salary"
-from employees
-order by job_id desc, salary desc;
+select  job_title,
+        max_salary
+from jobs
+order by job_title desc, max_salary desc;
 
 문제3.
 담당 매니저가 배정되어있으나 커미션비율이 없고, 월급이 3000초과인 직원의 이름, 매니저
@@ -35,11 +35,11 @@ and commission_pct >= 0;
 최고월급(max_salary)이 10000 이상인 업무의 이름(job_title)과 최고월급(max_salary)을 최
 고월급의(max_salary) 내림차순(DESC)로 정렬하여 출력하세요.
 
-select  job_id job_title,
-        salary max_salary
-from employees
-where salary >= 10000
-order by job_id desc, salary desc;
+select  job_title,
+        max_salary
+from jobs
+where max_salary >= 10000
+order by job_title desc, max_salary desc;
 
 문제5.
 월급이 14000 미만 10000 이상인 직원의 이름(first_name), 월급, 커미션퍼센트 를 월급순

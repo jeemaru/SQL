@@ -11,7 +11,7 @@ from employees;
 
 select  max(salary) 최대임금,
         min(salary) 최저임금,
-         max(salary) - min(salary) "최고임금 - 최저임금"
+        max(salary) - min(salary) "최고임금 - 최저임금"
 from employees;
 
 문제3.
@@ -97,9 +97,13 @@ order by avg(nvl(salary,0)) asc;
 정렬은 입사일로 오름차순으로 정렬합니다
 
 select  hire_date,
-        case when hire_date >= 02/12/31 then '창립멤버'
-        end hire_date
-from employees;
+		case when substr(hire_date, 1, 2) <03 then '창립멤버'
+			 when substr(hire_date, 1, 2) =03 then '03년입사'
+			 when substr(hire_date, 1, 2) =04 then '04년입사'
+			 when substr(hire_date, 1, 2) >04 then '상장후 입사'
+		end optdate
+from employees
+order by optdate asc;
 
 select *
 from employees;

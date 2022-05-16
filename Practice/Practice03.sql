@@ -30,6 +30,19 @@ where em.department_id = de.department_id
       and em.job_id = j.job_id
 order by employee_id asc;
 
+문제2-1.
+문제2에서 부서가 없는 Kimberely(사번 178)까지 표시해 보세요
+
+select  employee_id 사번,  
+        first_name 이름,
+        salary 급여,
+        department_name 부서명,
+        job_title 현재업무
+from employees em, departments de, jobs j
+where em.department_id = de.department_id(+)
+      and em.job_id = j.job_id
+order by employee_id asc;
+
 문제3.
 도시별로 위치한 부서들을 파악하려고 합니다.
 도시아이디, 도시명, 부서명, 부서아이디를 도시아이디(오름차순)로 정렬하여 출력하세요
@@ -44,6 +57,17 @@ from departments de, locations lo
 where de.location_id = lo.location_id
 order by lo.location_id asc;
 
+문제3-1.
+문제3에서 부서가 없는 도시도 표시합니다.
+
+select  lo.location_id,
+        city,
+        department_name,
+        department_id
+from departments de, locations lo
+where de.location_id(+) = lo.location_id
+order by lo.location_id asc;
+
 문제4.
 지역(regions)에 속한 나라들을 지역이름(region_name), 나라이름(country_name)으로 출력하
 되 지역이름(오름차순), 나라이름(내림차순) 으로 정렬하세요.
@@ -54,6 +78,20 @@ select  region_name,
 from regions re, countries con
 where re.region_id = con.region_id
 order by region_name asc, country_name desc;
+
+자신의 매니저보다 채용일(hire_date)이 빠른 사원의
+사번(employee_id), 이름(first_name)과 채용일(hire_date), 매니저이름(first_name), 매니저입
+사일(hire_date)을 조회하세요.
+(37건)
+
+select  e1.employee_id,
+        e1.first_name,
+        e1.hire_date,
+        e2.first_name,
+        e2.manager_id
+from employees e1, employees e2
+where e1.manager_id = e2.employee_id
+and e1.hire_date < e2.hire_date;
 
 문제6.
 나라별로 어떠한 부서들이 위치하고 있는지 파악하려고 합니다.
@@ -105,3 +143,17 @@ where em.employee_id = de.manager_id
       and de.location_id = lo.location_id
       and lo.country_id = con.country_id
       and con.region_id = re.region_id;
+        
+문제9.
+각 사원(employee)에 대해서 사번(employee_id), 이름(first_name), 부서명
+(department_name), 매니저(manager)의 이름(first_name)을 조회하세요.
+부서가 없는 직원(Kimberely)도 표시합니다.
+(106명)
+
+select  e1.employee_id,
+        e1.first_name,
+        department_name,
+        e2.manager_id
+from employees e1, employees e2, departments de
+where e1.manager_id = e2.employee_id
+and e1.department_id = de.department_id(+);

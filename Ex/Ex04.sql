@@ -113,3 +113,65 @@ select  e.first_name,
         
 from employees e, departments d
 where e.department_id = d.department_id
+
+--rownum
+--급여를 가장 많이 받는 5명의 직원의 이름을 출력하시오.
+--급여순으로 정렬
+-- 1~5등까지만 출력
+select  rownum,
+        ot.employee_id,
+        ot.first_name,
+        ot.salary
+from (select  employee_id,
+              first_name,
+              salary
+      from employees
+      order by salary desc) ot
+where rownum >= 2
+and rownum <=3;
+
+select  rownum rn,
+        ot.employee_id,
+        ot.first_name,
+        ot.salary
+from (select  employee_id,
+              first_name,
+              salary
+      from employees
+      order by salary desc) ot;
+
+select  ort.rn,
+        ort.employee_id,
+        ort.first_name,
+        ort.salary
+from (select  rownum rn,
+              ot.employee_id,
+              ot.first_name,
+              ot.salary
+      from (select  employee_id,
+                    first_name,
+                    salary
+            from employees
+            order by salary desc) ot
+     )ort
+where rn >=2
+and rn <=5;
+
+--07년에 입사한 직원중 급여가 많은 직원중 3에서 7등의 이름 급여 입사일은
+select  ort.employee_id,
+        ort.first_name,
+        ort.salary
+from (select  rownum rn,
+              ot.employee_id,
+              ot.first_name,
+              ot.salary
+      from (select  employee_id,
+                    first_name,
+                    salary
+            from employees
+            where hire_date >= '07/01/01'
+            and hire_date <= '07/12/31'
+            order by salary desc) ot
+     )ort
+where ort.rn >=3
+and ort.rn <=7;

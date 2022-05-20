@@ -117,3 +117,20 @@ where b.author_id = a.author_id;
 
 book과 author가 묶여있기때문..?
 
+Commit;
+
+-- author 수정
+update author
+set author_name = '최문열',
+    author_desc = '서울특별시'
+where author_id = 1;
+
+--author 제거
+delete author
+where author_id = 1;
+
+--autho 샐렉트
+select  author_id,    
+        author_name,
+        author_desc
+from author;
